@@ -6,7 +6,7 @@
 /*   By: alflores <alflores@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 20:04:19 by alflores          #+#    #+#             */
-/*   Updated: 2023/01/16 19:46:51 by alflores         ###   ########.fr       */
+/*   Updated: 2023/01/16 20:34:21 by alflores         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,8 @@ static	int ft_nblen(int nb)
 
 	len = 0;
 	if (nb < 0)
-	{
-		nb = ft_negnb(nb);
 		len++;
-	}
-	while (nb > 0)
+	while (nb !=  0)
 	{
 		nb /= 10;
 		len ++;
@@ -60,12 +57,12 @@ static	int ft_nblen(int nb)
 int	ft_printf_d(int nb)
 {
 	char	*str;
-	int		n;
 	int		i;
+	int		n;
 	int		aux;
 
-	n = ft_negnb(nb);
 	i = ft_nblen(nb);
+	n = ft_negnb(nb);
 	aux = i;
 	str = (char *)malloc(sizeof(char) * (i + 1));
 	str[i--] = '\0';
@@ -75,8 +72,8 @@ int	ft_printf_d(int nb)
 			str[i--] = '-';
 		else
 		{
-			str[i--] = (nb % 10) + '0';
-			nb = nb / 10;
+			str[i--] = (n % 10) + '0';
+			n = n / 10;
 		}
 	}
 	return(write(1,str,aux));
@@ -127,7 +124,7 @@ int main()
 	char	*str;
 	
 	str = "Hola"; 
-	c = -2223;	
+	c = -10000;	
 	a = 83;
 	b = 80;
 	ft_printf("La primera letra de mi nommbre es:%c y la ultima es %c y la palabra es %s y el num es %d", a, b, str, c);
