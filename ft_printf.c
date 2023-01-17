@@ -6,7 +6,7 @@
 /*   By: alflores <alflores@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 20:04:19 by alflores          #+#    #+#             */
-/*   Updated: 2023/01/17 22:53:24 by alflores         ###   ########.fr       */
+/*   Updated: 2023/01/17 23:16:59 by alflores         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@
 // 	return(write(1,str,aux));
 // }
 //Para el tamaño del string:
-size_t	ft_strlen(const char *str)
+/* size_t	ft_strlen(const char *str)
 {
 	int	i;
 
@@ -72,12 +72,12 @@ size_t	ft_strlen(const char *str)
 	while (str[i] != '\0')
 		i++;
 	return (i);
-}
+} */
 //Para printear:
 int	ft_putchar(char c)
 {
 	return(write(1, &c, 1));
-}
+} 
 //Para los punteros:
 static int	ft_pointer(size_t num)
 {
