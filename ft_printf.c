@@ -6,7 +6,7 @@
 /*   By: alflores <alflores@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 20:04:19 by alflores          #+#    #+#             */
-/*   Updated: 2023/01/17 20:28:30 by alflores         ###   ########.fr       */
+/*   Updated: 2023/01/17 21:15:13 by alflores         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,25 +79,29 @@ int	ft_printf_d(int nb)
 	return(write(1,str,aux));
 }
 //Para el tema de las bases
-static int	ft_base(size_t num, char *base)
+static int  ft_base(size_t nb, char *base)
 {
-	size_t	len;
+    size_t  len;
 
 	len = 1;
-	if (num >= (size_t)ft_strlen(base))
-	{
-		len += ft_base(num / ft_strlen(base), base);
-		ft_putchar(base[num % ft_strlen(base)]);
-	}
-	else
-		ft_putchar(base[num]);
-	return (len);
+    if (nb < 0)
+        nb += 4294967296;
+    if (nb >= (size_t)ft_strlen(base))
+    {
+        len += ft_base(nb / ft_strlen(base), base);
+        ft_putchar(base[nb % ft_strlen(base)]);
+    }
+    else
+        ft_putchar(base[nb]);
+    return (len);
 }
 //Desde donde se distribuye todo:
 void ft_distributioner(char const format, va_list argv)
 {
 	char	*base_min;
+	char	*base_dec;
 
+	base_dec = "0123456789";
 	base_min = "0123456789abcdef";
 	if (format == 'c')
 		ft_putchar(va_arg(argv, int));
@@ -107,6 +111,8 @@ void ft_distributioner(char const format, va_list argv)
 		ft_printf_d(va_arg(argv, int));
 	else if (format == 'x')
 		ft_putchar(ft_base(va_arg(argv, int), base_min));
+	else if (format == 'u')
+		ft_putchar(ft_base(va_arg(argv, int), base_dec));
 }
 
 int	ft_printf(char const *format, ...)
@@ -141,11 +147,15 @@ int main()
 	int	a;
 	int	b;
 	int c;
+	int	d;
+	int e;
 	char	*str;
 	
 	str = "Hola"; 
 	c = -10000;	
 	a = 83;
 	b = 80;
-	ft_printf("La primera letra de mi nommbre es:%c y la ultima es %c y la palabra es %s y el num es %d", a, b, str, c);
+	d = -1723;
+	e = -1;
+	ft_printf("La primera letra de mi nommbre es:%c y la ultima es %c y la palabra es %s y el num es %d, y en hexa es: %x y el unsigned es %u", a, b, str, c, d, e);
 }
