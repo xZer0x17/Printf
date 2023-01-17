@@ -6,7 +6,7 @@
 /*   By: alflores <alflores@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 20:04:19 by alflores          #+#    #+#             */
-/*   Updated: 2023/01/16 20:34:21 by alflores         ###   ########.fr       */
+/*   Updated: 2023/01/17 20:28:30 by alflores         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,15 +78,35 @@ int	ft_printf_d(int nb)
 	}
 	return(write(1,str,aux));
 }
+//Para el tema de las bases
+static int	ft_base(size_t num, char *base)
+{
+	size_t	len;
 
+	len = 1;
+	if (num >= (size_t)ft_strlen(base))
+	{
+		len += ft_base(num / ft_strlen(base), base);
+		ft_putchar(base[num % ft_strlen(base)]);
+	}
+	else
+		ft_putchar(base[num]);
+	return (len);
+}
+//Desde donde se distribuye todo:
 void ft_distributioner(char const format, va_list argv)
 {
+	char	*base_min;
+
+	base_min = "0123456789abcdef";
 	if (format == 'c')
 		ft_putchar(va_arg(argv, int));
 	else if (format == 's')
 		ft_printf_string(va_arg(argv, char const *));
 	else if (format == 'd')
 		ft_printf_d(va_arg(argv, int));
+	else if (format == 'x')
+		ft_putchar(ft_base(va_arg(argv, int), base_min));
 }
 
 int	ft_printf(char const *format, ...)
